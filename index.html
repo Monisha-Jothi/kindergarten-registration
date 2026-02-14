@@ -3,9 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Kindergarten Registration</title>
+    <!-- Link to your style.css file -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Optional: Google Fonts for playful look -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    
+    <!-- Hero Section -->
+    <header>
+        <nav>
+            <div class="logo">🌈 Little Stars KG</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#register">Register</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <h1>Welcome to Kindergarten!</h1>
+        <p>Join our fun learning adventure. Register your little one today!</p>
+        <a href="#register" class="cta-button">Start Registration</a>
+    </section>
+
+    <!-- Registration Form -->
+    <main>
+        <section class="registration-section" id="register">
+            <h2>Registration Form</h2>
+            <form>
+                <div class="form-group">
+                    <label for="child-name">Child's Full Name</label>
+                    <input type="text" id="child-name" name="child-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="parent-name">Parent's Name</label>
+                    <input type="text" id="parent-name" name="parent-name" required>
+                </div>
+                <div class="form-group">
+                    <label>Child's Age Group</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="age" value="3-4" required> 3-4 Years</label>
+                        <label><input type="radio" name="age" value="4-5"> 4-5 Years</label>
+                        <label><input type="radio" name="age" value="5+"> 5+ Years</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="photo">Child's Photo</label>
+                    <div class="file-upload">
+                        <input type="file" id="photo" name="photo" accept="image/*">
+                        <label for="photo" class="file-upload-label">Choose Photo 🎨</label>
+                    </div>
+                </div>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="terms" required> I agree to terms & conditions</label>
+                </div>
+                <button type="submit">Submit Registration 🎉</button>
+            </form>
+        </section>
+
+        <aside class="info-section">
+            <h2>Why Choose Us?</h2>
+            <ul class="info-list">
+                <li>Fun play-based learning</li>
+                <li>Qualified teachers</li>
+                <li>Safe & nurturing environment</li>
+                <li>Daily activities & meals</li>
+            </ul>
+        </aside>
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+            <a href="#">Contact: info@littlestarskg.com</a>
+        </div>
+        <p>&copy; 2026 Little Stars Kindergarten. All rights reserved.</p>
+    </footer>
+
+    <!-- Optional: Simple JS for form submit -->
+    <script>
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Registration submitted! 🎈 We\'ll contact you soon.');
+        });
+    </script>
 </body>
 </html>
