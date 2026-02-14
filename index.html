@@ -3,95 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kindergarten Registration</title>
-    <!-- Link to your style.css file -->
+    <title>🌟 Little Stars Kindergarten</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <!-- Optional: Google Fonts for playful look -->
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Hero Section -->
+    <!-- Floating Emojis -->
+    <div class="floating">🎈</div>
+    <div class="floating">⭐</div>
+    <div class="floating">🌟</div>
+    <div class="floating">🦄</div>
+    <div class="floating">🎀</div>
+    <div class="floating">✨</div>
+
+    <!-- Header -->
     <header>
-        <nav>
+        <nav class="nav-container">
             <div class="logo">🌈 Little Stars KG</div>
             <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#register">Register</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#home">🏠 Home</a></li>
+                <li><a href="#register">📝 Register</a></li>
+                <li><a href="#features">✨ Features</a></li>
+                <li><a href="#contact">📞 Contact</a></li>
             </ul>
         </nav>
     </header>
 
+    <!-- Hero -->
     <section class="hero" id="home">
-        <h1>Welcome to Kindergarten!</h1>
-        <p>Join our fun learning adventure. Register your little one today!</p>
-        <a href="#register" class="cta-button">Start Registration</a>
+        <h1 class="hero-title">Welcome to Magical Kindergarten!</h1>
+        <p class="hero-subtitle">Your child's happy journey begins here 🌟</p>
+        <a href="#register" class="cta-button">🚀 Start Registration</a>
     </section>
 
-    <!-- Registration Form -->
+    <!-- Main Content -->
     <main>
-        <section class="registration-section" id="register">
-            <h2>Registration Form</h2>
-            <form>
-                <div class="form-group">
-                    <label for="child-name">Child's Full Name</label>
-                    <input type="text" id="child-name" name="child-name" required>
-                </div>
-                <div class="form-group">
-                    <label for="parent-name">Parent's Name</label>
-                    <input type="text" id="parent-name" name="parent-name" required>
-                </div>
-                <div class="form-group">
-                    <label>Child's Age Group</label>
-                    <div class="radio-group">
-                        <label><input type="radio" name="age" value="3-4" required> 3-4 Years</label>
-                        <label><input type="radio" name="age" value="4-5"> 4-5 Years</label>
-                        <label><input type="radio" name="age" value="5+"> 5+ Years</label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="photo">Child's Photo</label>
-                    <div class="file-upload">
-                        <input type="file" id="photo" name="photo" accept="image/*">
-                        <label for="photo" class="file-upload-label">Choose Photo 🎨</label>
-                    </div>
-                </div>
-                <div class="checkbox-group">
-                    <label><input type="checkbox" name="terms" required> I agree to terms & conditions</label>
-                </div>
-                <button type="submit">Submit Registration 🎉</button>
-            </form>
+        <!-- Features -->
+        <section class="features" id="features">
+            <div class="feature-card">
+                <div class="feature-icon">🎨</div>
+                <h3>Creative Play</h3>
+                <p>Art, music, and imagination every day!</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📚</div>
+                <h3>Learning Fun</h3>
+                <p>Games + ABCs = Happy learning!</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">❤️</div>
+                <h3>Loving Care</h3>
+                <p>Qualified teachers love every star 🌟</p>
+            </div>
         </section>
 
-        <aside class="info-section">
-            <h2>Why Choose Us?</h2>
-            <ul class="info-list">
-                <li>Fun play-based learning</li>
-                <li>Qualified teachers</li>
-                <li>Safe & nurturing environment</li>
-                <li>Daily activities & meals</li>
-            </ul>
-        </aside>
+        <!-- Registration Form -->
+        <section class="registration" id="register">
+            <h2 class="form-title">✨ Register Your Little Star</h2>
+            <form id="regForm" class="form-grid">
+                <div class="form-group">
+                    <label for="childName">🌟 Child's Name</label>
+                    <input type="text" id="childName" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="parentName">👩‍👧 Parent Name</label>
+                    <input type="text" id="parentName" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label>🎂 Age Group</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="age3" name="age" value="3-4" required>
+                            <label for="age3">3-4 yrs 🌈</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="age4" name="age" value="4-5">
+                            <label for="age4">4-5 yrs ⭐</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="age5" name="age" value="5+">
+                            <label for="age5">5+ yrs 🚀</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">📧 Email</label>
+                    <input type="email" id="email" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="photo">📸 Photo</label>
+                    <div class="file-upload-wrapper">
+                        <input type="file" id="photo" class="file-upload-input" accept="image/*">
+                        <label for="photo" class="file-upload-label">Choose Photo</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox-option">
+                        <input type="checkbox" id="terms" required>
+                        <label for="terms">✅ Agree to terms</label>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">🎉 Register Now!</button>
+            </form>
+            <div class="success-message" id="successMsg">
+                <h2>🎉 Registration Success!</h2>
+                <p>We'll contact you soon! 🌟</p>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section class="contact" id="contact">
+            <h2>📞 Contact Us</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div>Chennai, Tamil Nadu</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📱</div>
+                    <div>+91 98xxx xxx xx</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">✉️</div>
+                    <div>hello@littlestarskg.com</div>
+                </div>
+            </div>
+        </section>
     </main>
 
+    <!-- Footer -->
     <footer>
         <div class="footer-links">
             <a href="#">Privacy</a>
             <a href="#">Terms</a>
-            <a href="#">Contact: info@littlestarskg.com</a>
+            <a href="#contact">Contact</a>
         </div>
-        <p>&copy; 2026 Little Stars Kindergarten. All rights reserved.</p>
+        <p>© 2026 Little Stars KG <span class="heart">❤️</span></p>
     </footer>
 
-    <!-- Optional: Simple JS for form submit -->
     <script>
-        document.querySelector('form').addEventListener('submit', function(e) {
+        // Form submit
+        document.getElementById('regForm').addEventListener('submit', e => {
             e.preventDefault();
-            alert('Registration submitted! 🎈 We\'ll contact you soon.');
+            document.getElementById('successMsg').classList.add('show');
+            document.getElementById('regForm').style.display = 'none';
+        });
+        
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                e.preventDefault();
+                document.querySelector(a.getAttribute('href')).scrollIntoView({behavior: 'smooth'});
+            });
         });
     </script>
 </body>
