@@ -773,6 +773,232 @@
         <p>© 2026 Little Stars KG <span class="heart">❤️</span></p>
     </footer>
 
+    <!-- ===== 3D ENTRANCE OVERLAY ===== -->
+    <div id="entrance" style="
+        position: fixed; inset: 0; z-index: 9999;
+        background: #0a0a1a;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        transition: opacity 0.9s ease, transform 0.9s ease;
+    ">
+        <canvas id="threeCanvas" style="position:absolute;inset:0;width:100%;height:100%;"></canvas>
+
+        <div id="entranceContent" style="
+            position: relative; z-index: 10;
+            text-align: center;
+            animation: entranceFadeIn 1.4s 0.5s cubic-bezier(0.22,1,0.36,1) both;
+        ">
+            <div style="font-size: clamp(3rem,10vw,6rem); margin-bottom: 10px; filter: drop-shadow(0 0 30px rgba(255,217,61,0.7)); animation: starSpin 6s linear infinite;">🌟</div>
+            <h1 style="
+                font-family: 'Baloo 2', cursive;
+                font-size: clamp(2rem, 6vw, 4.5rem);
+                font-weight: 900;
+                background: linear-gradient(135deg, #FFD93D 0%, #FF6B6B 50%, #B197FC 100%);
+                -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+                background-clip: text;
+                margin-bottom: 12px;
+                letter-spacing: -1px;
+            ">Little Stars KG</h1>
+            <p style="
+                font-family: 'Nunito', sans-serif;
+                color: rgba(255,255,255,0.7);
+                font-size: clamp(1rem, 2.5vw, 1.25rem);
+                font-weight: 600;
+                margin-bottom: 44px;
+                letter-spacing: 0.5px;
+            ">Where every child shines ✨</p>
+
+            <button id="enterBtn" style="
+                font-family: 'Baloo 2', cursive;
+                font-size: 1.15rem;
+                font-weight: 800;
+                color: #0a0a1a;
+                background: linear-gradient(135deg, #FFD93D 0%, #FFA94D 100%);
+                border: none;
+                border-radius: 50px;
+                padding: 18px 52px;
+                cursor: pointer;
+                box-shadow: 0 0 40px rgba(255,217,61,0.5), 0 8px 30px rgba(0,0,0,0.3);
+                transition: transform 0.2s, box-shadow 0.2s;
+                letter-spacing: 0.3px;
+                position: relative; overflow: hidden;
+            " onmouseover="this.style.transform='translateY(-4px) scale(1.05)';this.style.boxShadow='0 0 60px rgba(255,217,61,0.8), 0 16px 40px rgba(0,0,0,0.3)'"
+               onmouseout="this.style.transform='none';this.style.boxShadow='0 0 40px rgba(255,217,61,0.5), 0 8px 30px rgba(0,0,0,0.3)'">
+                🚀 Enter Magical World
+            </button>
+        </div>
+    </div>
+
+    <style>
+        @keyframes entranceFadeIn {
+            from { opacity: 0; transform: scale(0.85) translateY(40px); }
+            to   { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        @keyframes starSpin {
+            0%   { transform: rotate(0deg) scale(1); }
+            50%  { transform: rotate(180deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+        #entrance.exit {
+            opacity: 0 !important;
+            transform: scale(1.08) !important;
+            pointer-events: none;
+        }
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        (function() {
+            const canvas = document.getElementById('threeCanvas');
+            const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 5;
+
+            // ── Starfield ──
+            const starGeo = new THREE.BufferGeometry();
+            const starCount = 1800;
+            const starPos = new Float32Array(starCount * 3);
+            const starColors = new Float32Array(starCount * 3);
+            const palette = [
+                [1.0, 0.85, 0.24],  // gold
+                [1.0, 0.42, 0.42],  // coral
+                [0.70, 0.60, 1.0],  // lavender
+                [0.30, 0.67, 0.47], // mint
+                [0.30, 0.67, 0.97]  // sky
+            ];
+            for (let i = 0; i < starCount; i++) {
+                starPos[i*3]   = (Math.random() - 0.5) * 80;
+                starPos[i*3+1] = (Math.random() - 0.5) * 80;
+                starPos[i*3+2] = (Math.random() - 0.5) * 80;
+                const c = palette[Math.floor(Math.random() * palette.length)];
+                starColors[i*3] = c[0]; starColors[i*3+1] = c[1]; starColors[i*3+2] = c[2];
+            }
+            starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+            starGeo.setAttribute('color', new THREE.BufferAttribute(starColors, 3));
+            const starMat = new THREE.PointsMaterial({ size: 0.22, vertexColors: true, transparent: true, opacity: 0.9, sizeAttenuation: true });
+            scene.add(new THREE.Points(starGeo, starMat));
+
+            // ── Floating 3D Stars (icosahedrons) ──
+            const floaters = [];
+            const floaterColors = [0xFFD93D, 0xFF6B6B, 0xB197FC, 0x6BCB77, 0x4DABF7, 0xFFA94D];
+            for (let i = 0; i < 28; i++) {
+                const geo = new THREE.IcosahedronGeometry(Math.random() * 0.22 + 0.08, 0);
+                const mat = new THREE.MeshPhongMaterial({
+                    color: floaterColors[i % floaterColors.length],
+                    emissive: floaterColors[i % floaterColors.length],
+                    emissiveIntensity: 0.35,
+                    shininess: 120,
+                    transparent: true, opacity: 0.85
+                });
+                const mesh = new THREE.Mesh(geo, mat);
+                mesh.position.set(
+                    (Math.random() - 0.5) * 12,
+                    (Math.random() - 0.5) * 8,
+                    (Math.random() - 0.5) * 6 - 2
+                );
+                mesh.userData = {
+                    speedX: (Math.random() - 0.5) * 0.007,
+                    speedY: (Math.random() - 0.5) * 0.007,
+                    rotX:   (Math.random() - 0.5) * 0.03,
+                    rotY:   (Math.random() - 0.5) * 0.03,
+                    rotZ:   (Math.random() - 0.5) * 0.02,
+                    originX: mesh.position.x,
+                    originY: mesh.position.y,
+                    phase: Math.random() * Math.PI * 2
+                };
+                scene.add(mesh);
+                floaters.push(mesh);
+            }
+
+            // ── Large central rotating torus ──
+            const torusGeo = new THREE.TorusGeometry(2.2, 0.06, 16, 100);
+            const torusMat = new THREE.MeshPhongMaterial({ color: 0xFFD93D, emissive: 0xFFD93D, emissiveIntensity: 0.4, transparent: true, opacity: 0.35 });
+            const torus = new THREE.Mesh(torusGeo, torusMat);
+            scene.add(torus);
+
+            const torus2Geo = new THREE.TorusGeometry(1.6, 0.04, 16, 100);
+            const torus2Mat = new THREE.MeshPhongMaterial({ color: 0xFF6B6B, emissive: 0xFF6B6B, emissiveIntensity: 0.4, transparent: true, opacity: 0.28 });
+            const torus2 = new THREE.Mesh(torus2Geo, torus2Mat);
+            torus2.rotation.x = Math.PI / 3;
+            scene.add(torus2);
+
+            // ── Lights ──
+            scene.add(new THREE.AmbientLight(0xffffff, 0.4));
+            const pLight1 = new THREE.PointLight(0xFFD93D, 2, 20);
+            pLight1.position.set(3, 3, 3);
+            scene.add(pLight1);
+            const pLight2 = new THREE.PointLight(0xFF6B6B, 1.5, 15);
+            pLight2.position.set(-3, -2, 2);
+            scene.add(pLight2);
+            const pLight3 = new THREE.PointLight(0xB197FC, 1.5, 15);
+            pLight3.position.set(0, -3, 3);
+            scene.add(pLight3);
+
+            // ── Mouse parallax ──
+            let mouseX = 0, mouseY = 0;
+            document.addEventListener('mousemove', e => {
+                mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+                mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+            });
+
+            // ── Resize ──
+            window.addEventListener('resize', () => {
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+            });
+
+            // ── Animate ──
+            let t = 0;
+            function animate() {
+                if (!document.getElementById('entrance')) return;
+                requestAnimationFrame(animate);
+                t += 0.012;
+
+                torus.rotation.x = t * 0.4;
+                torus.rotation.y = t * 0.3;
+                torus2.rotation.y = -t * 0.35;
+                torus2.rotation.z = t * 0.25;
+
+                floaters.forEach(f => {
+                    const d = f.userData;
+                    f.rotation.x += d.rotX;
+                    f.rotation.y += d.rotY;
+                    f.rotation.z += d.rotZ;
+                    f.position.y = d.originY + Math.sin(t + d.phase) * 0.4;
+                    f.position.x = d.originX + Math.cos(t * 0.7 + d.phase) * 0.25;
+                });
+
+                camera.position.x += (mouseX * 0.6 - camera.position.x) * 0.04;
+                camera.position.y += (-mouseY * 0.4 - camera.position.y) * 0.04;
+                camera.lookAt(scene.position);
+
+                pLight1.position.x = Math.sin(t * 0.7) * 4;
+                pLight1.position.y = Math.cos(t * 0.5) * 3;
+                pLight2.position.x = Math.cos(t * 0.6) * 3;
+                pLight2.position.z = Math.sin(t * 0.4) * 4;
+
+                renderer.render(scene, camera);
+            }
+            animate();
+
+            // ── Enter button ──
+            document.getElementById('enterBtn').addEventListener('click', () => {
+                const el = document.getElementById('entrance');
+                el.classList.add('exit');
+                setTimeout(() => {
+                    el.remove();
+                    renderer.dispose();
+                }, 950);
+            });
+        })();
+    </script>
+    <!-- ===== END ENTRANCE ===== -->
+
     <script>
         // Form submit
         document.getElementById('regForm').addEventListener('submit', e => {
